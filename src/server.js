@@ -1,11 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import { initDB } from "./config/db.js";
-//import rateLimiter from "./middleware/rateLimiter.js";
+import rateLimiter from "./middleware/rateLimiter.js";
 
 import transactionsRoutes from "./routes/transactionsRoutes.js";
 import job from "./config/cron.js";
-app.use(express.json());
+
 dotenv.config();
 
 const app = express();
@@ -14,8 +14,8 @@ if (process.env.NODE_ENV === "production") job.start();
 
 // middleware
 // app.use(cors());
-//app.use(rateLimiter);
-
+app.use(rateLimiter);
+app.use(express.json());
 
 const PORT = process.env.PORT || 5001;
 

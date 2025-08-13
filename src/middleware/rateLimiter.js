@@ -1,20 +1,20 @@
-// import retelimit from "../config/upstash.js";
+import retelimit from "../config/upstash.js";
 
-// const rateLimiter = async (req, res, next) => {
-//   try { 
-//     // user
-//     const { success } = await retelimit.limit("my-rate-limit");
+const rateLimiter = async (req, res, next) => {
+  try { 
+    // user
+    const { success } = await retelimit.limit("my-rate-limit");
 
-//     if (!success) {
-//       return res.status(429).json({
-//         message: "Too many requests, please try again later.",
-//       });
-//     }
-//     next()
-//   } catch (error) {
-//     console.log("Rate limit error", error);
-//     next(error);
-//   }
-// };
+    if (!success) {
+      return res.status(429).json({
+        message: "Too many requests, please try again later.",
+      });
+    }
+    next()
+  } catch (error) {
+    console.log("Rate limit error", error);
+    next(error);
+  }
+};
 
-// export default rateLimiter;
+export default rateLimiter;
